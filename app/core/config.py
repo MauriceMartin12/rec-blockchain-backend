@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 from urllib.parse import quote_plus
 from pathlib import Path
+from pydantic import Field
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ENV_PATH = BASE_DIR / ".env"
@@ -21,6 +22,13 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+
+
+      # =========================
+    # Redis
+    # =========================
+    REDIS_URL: str = Field(..., description="Redis connection URL")
+
 
     # ========================
     # RATE LIMIT

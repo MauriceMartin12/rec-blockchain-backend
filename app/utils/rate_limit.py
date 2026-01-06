@@ -1,14 +1,17 @@
+import os
 import time
 import redis
 from fastapi import Request, HTTPException, status
 
-# Connexion Redis (à déplacer dans core/config si besoin)
-redis_client = redis.Redis(
-    host="localhost",
-    port=6379,
-    db=0,
-    decode_responses=True
-)
+
+def get_redis_client():
+    redis_url = os.getenv("REDIS_URL")
+
+    if not redis_url:
+        raise RuntimeError("REDIS_URL is not set in environment variables")
+
+    return redis.from_url(redis_url, decode_responses=True)
+
 
 class RateLimiter:
     def __init__(
@@ -22,6 +25,8 @@ class RateLimiter:
         self.identifier = identifier
 
     async def __call__(self, request: Request):
+        redis_client = get_redis_client()  # ✅ ICI seulement
+
         client_ip = request.client.host
         endpoint = request.url.path
         current_time = int(time.time())
@@ -37,18 +42,11 @@ class RateLimiter:
         _, _, request_count, _ = pipeline.execute()
 
         if request_count > self.max_requests:
-            reset_time = redis_client.zrange(key, 0, 0, withscores=True)
-            reset_in = (
-                self.window_seconds - (current_time - int(reset_time[0][1]))
-                if reset_time else self.window_seconds
-            )
-
             raise HTTPException(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                 detail="Rate limit exceeded",
                 headers={
                     "X-RateLimit-Limit": str(self.max_requests),
                     "X-RateLimit-Remaining": "0",
-                    "X-RateLimit-Reset": str(reset_in),
                 }
             )
