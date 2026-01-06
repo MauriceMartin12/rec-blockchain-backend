@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, create_engine, Session
-from core.config import settings
+from app.core.config import settings
 
 # echo=True pour debug SQL
 engine = create_engine(settings.DATABASE_URL, echo=True, pool_pre_ping=True)
