@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from database import create_db_and_tables
-from routers import soumission, admin
+from app.database import create_db_and_tables
+from app.routers import soumission, admin
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
