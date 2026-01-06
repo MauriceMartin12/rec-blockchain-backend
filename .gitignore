@@ -1,0 +1,13 @@
+# Environnements virtuels
+venv/
+__pycache__/
+
+# Fichiers Python compilés
+*.pyc
+*.pyo
+
+# Secrets
+.env
+
+# Logs
+*.log
