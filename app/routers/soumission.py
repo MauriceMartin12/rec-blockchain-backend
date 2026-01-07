@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlmodel import Session
 
-from database import get_db
-from schemas.soumission import SoumissionCreate, SoumissionOut
-from services.soumission import create_soumission
-from utils.rate_limit import RateLimiter
+from app.database import get_db
+from app.schemas.soumission import SoumissionCreate, SoumissionOut
+from app.services.soumission import create_soumission
+from app.utils.rate_limit import RateLimiter
 
 router = APIRouter(prefix="/soumissions", tags=["Soumissions"])
 rate_limit = RateLimiter(3, 60)
