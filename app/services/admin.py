@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from models.soumission import Soumission
+from app.models.soumission import Soumission
 
 def get_soumissions(db: Session, skip: int = 0, limit: int = 20):
     return db.exec(
