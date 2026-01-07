@@ -2,8 +2,8 @@ from datetime import datetime, timedelta
 from fastapi import HTTPException, status
 from sqlmodel import Session, select
 
-from models.soumission import Soumission
-from schemas.soumission import SoumissionCreate
+from app.models.soumission import Soumission
+from app.schemas.soumission import SoumissionCreate
 
 DUPLICATE_HOURS = 24
 
