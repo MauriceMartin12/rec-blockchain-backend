@@ -11,9 +11,9 @@ from fastapi.security import OAuth2PasswordBearer
 
 from sqlmodel import Session, select
 
-from core.config import settings
-from database import get_db
-from models.admin import Admin
+from app.core.config import settings
+from app.database import get_db
+from app.models.admin import Admin
 
 # ===================================
 # CONFIG JWT
