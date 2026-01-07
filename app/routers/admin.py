@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
 
-from database import get_db
-from schemas.admin import AdminLogin, Token
-from services.admin import get_soumissions
-from services.admin import get_soumissions
-from core.security import create_access_token, verify_password
-from core.dependencies import get_current_admin
-from models.admin import Admin
+from app.database import get_db
+from app.schemas.admin import AdminLogin, Token
+from app.services.admin import get_soumissions
+from app.services.admin import get_soumissions
+from app.core.security import create_access_token, verify_password
+from app.core.dependencies import get_current_admin
+from app.models.admin import Admin
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
 
