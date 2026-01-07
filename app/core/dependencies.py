@@ -3,9 +3,9 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlmodel import Session, select
 
-from core.config import settings
-from database import get_db
-from models.admin import Admin
+from app.core.config import settings
+from app.database import get_db
+from app.models.admin import Admin
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/admin/login")
 
